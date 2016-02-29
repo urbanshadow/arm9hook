@@ -11,12 +11,15 @@ if(R_FAILED(ret = svcSendSyncRequest(ampxiHandle)))return ret;
 return (Result)cmdbuf[1];
 */
 //Callee:
-__asm__("STMFD SP!,{R0-R12,LR}");
-__asm__("MOV R0,R4");
 __attribute__((naked)) void arm9hook(u32* cmdbuffer){
 	u32 i;
 	for(i=0;i<(((cmdbuffer[1] & ~0xFFu) >> 8)/4);i++) *(((u32*)0x01FF8000)+i) = *(((u32*)cmdbuffer[2])+i);
 	((void (*)())0x01FF8000)();
 }
-int main(){}
-__asm__("LDMFD SP!,{R0-R12,LR}");
+int main(){
+	u32 test[3] = {7,8,4};
+	__asm__("STMFD SP!,{R0-R12,LR}");
+	__asm__("MOV R0,R4");
+	arm9hook(test);
+	__asm__("LDMFD SP!,{R0-R12,LR}");
+}
