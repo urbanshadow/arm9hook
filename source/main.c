@@ -1,33 +1,20 @@
-#include "common.h"
-#include "draw.h"
-#include "i2c.h"
-#include "hid.h"
+/*
+Caller
+Result ret = 0;
+u32 *cmdbuf = getThreadCommandBuffer();
+cmdbuf[0] = IPC_MakeHeader(0x6A,0,2); // 0x6A0010?
+cmdbuf[1] = IPC_Desc_PXIBuffer(8, 0, 0);
+cmdbuf[2] = payloadfile;
 
-void Reboot()
-{
-    i2cWriteRegister(I2C_DEV_MCU, 0x20, 1 << 2);
-    while(true);
+if(R_FAILED(ret = svcSendSyncRequest(ampxiHandle)))return ret;
+
+return (Result)cmdbuf[1];
+*/
+//Callee
+asm("STMFD SP!, {R0-R12,LR}");
+asm("MOV R0,R4");
+void arm9hook(u32* cmdbuffer){
+	memcpy(0x01FF8000, cmdbuffer[2],(cmdbuffer[1] & ~0xFFu) >> 8);
 }
-
-
-void PowerOff()
-{
-    i2cWriteRegister(I2C_DEV_MCU, 0x20, 1 << 0);
-    while (true);
-}
-
-//1. find where pxi:dev is first
-//2. pxi:dev cmd handler @ sub_80869F0 (p9, fw 9.9). Search for 0x000101C2 in IDA
-int main()
-{
-    ClearScreenFull(true, true);
-	while (true) {
-		u32 pad_state = InputWait();
-		DrawStringF(3,3,true,"Test 1");
-		DrawStringF(16,16,true,"Test 2");
-		if (pad_state & BUTTON_START) {
-            (pad_state & BUTTON_LEFT) ? Reboot() : PowerOff();
-        }
-	}
-    return 0;
-}
+asm("B 0x01FF8000")
+asm("LDMFD SP!, {R0-R12,LR}");
