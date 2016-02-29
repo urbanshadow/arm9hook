@@ -39,7 +39,7 @@ CFLAGS	+=	-DBUILD_NAME="\"$(TARGET) (`date +'%Y/%m/%d'`)\""
 CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions
 
 ASFLAGS	:=	-g $(ARCH)
-LDFLAGS	=	-nostartfiles -g --specs=../bootstrap.specs $(ARCH) -Wl,-Map,$(TARGET).map
+LDFLAGS	=	-nostartfiles -g 
 
 LIBS	:=
 
