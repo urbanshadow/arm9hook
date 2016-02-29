@@ -18,9 +18,9 @@ include $(DEVKITARM)/ds_rules
 #---------------------------------------------------------------------------------
 export TARGET	:=	arm9hook
 BUILD		:=	build
-SOURCES		:=	source source/abstraction
+SOURCES		:=	source
 DATA		:=	data
-INCLUDES	:=	include source
+INCLUDES	:=  source
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -114,6 +114,9 @@ release:
 	@cp $(CURDIR)/README.md $(RELEASE)
 	@-[ ! -n "$(strip $(THEME))" ] || (mkdir $(RELEASE)/$(THEME) && cp $(CURDIR)/resources/$(THEME)/*.bin $(RELEASE)/$(THEME))
 	@-7z a $(RELEASE)/$(TARGET)-`date +'%Y%m%d-%H%M%S'`.zip $(RELEASE)/*
+asm: common
+	@make -s --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
+	@cp $(OUTPUT).bin $(OUTPUT_D)/arm9loaderhax.bin
 	
 #---------------------------------------------------------------------------------
 clean:
