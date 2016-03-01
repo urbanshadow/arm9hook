@@ -29,7 +29,7 @@ ARCH	:=
 
 CFLAGS	:=	-g -Wall -O2\
 			-march=armv5te -mtune=arm946e-s -fomit-frame-pointer\
-			-std=c99\
+			-ffast-math -std=c99\
 			$(ARCH)
 
 CFLAGS	+=	$(INCLUDE) -DARM9
