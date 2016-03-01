@@ -17,7 +17,7 @@ return (Result)cmdbuf[1];
 **/
 
 // ARM ASM Entry
-void __attribute__((naked)) _start(void){
+void __attribute__((section (".text.start"),naked)) _start(void){
 	__asm__("STMFD SP!,{R0-R12,LR}\n"
 	"MOV R0,R4\n"
 	"BLX arm9hook\n" //BLX stores this address in LR
