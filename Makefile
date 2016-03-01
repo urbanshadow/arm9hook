@@ -25,11 +25,11 @@ INCLUDES	:=  source
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
-ARCH	:= -mthumb-interwork
+ARCH	:=
 
 CFLAGS	:=	-g -Wall -O2\
 			-march=armv5te -mtune=arm946e-s -fomit-frame-pointer\
-			-ffast-math -std=c99\
+			-std=c99\
 			$(ARCH)
 
 CFLAGS	+=	$(INCLUDE) -DARM9
@@ -115,7 +115,7 @@ release:
 	@-[ ! -n "$(strip $(THEME))" ] || (mkdir $(RELEASE)/$(THEME) && cp $(CURDIR)/resources/$(THEME)/*.bin $(RELEASE)/$(THEME))
 	@-7z a $(RELEASE)/$(TARGET)-`date +'%Y%m%d-%H%M%S'`.zip $(RELEASE)/*
 asm: common
-	@make -s --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
+	@make --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 	@cp $(OUTPUT).bin $(OUTPUT_D)/arm9loaderhax.bin
 	
 #---------------------------------------------------------------------------------

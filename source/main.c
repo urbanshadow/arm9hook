@@ -11,15 +11,14 @@ if(R_FAILED(ret = svcSendSyncRequest(ampxiHandle)))return ret;
 return (Result)cmdbuf[1];
 */
 //Callee:
-void __attribute__((naked)) arm9hook(u32* cmdbuffer){
+void __attribute__((naked)) ah(u32* cbuff){
 	u32 i;
-	for(i=0;i<(((cmdbuffer[1] & ~0xFFu) >> 8)/4);i++) *(((u32*)0x01FF8000)+i) = *(((u32*)cmdbuffer[2])+i);
+	for(i=0;i<(((cbuff[1] & ~0xFFu) >> 8)/4);i++) *(((u32*)0x01FF8000)+i) = *(((u32*)cbuff[2])+i);
 	((void (*)())0x01FF8000)();
 }
 void __attribute__((naked)) _start(void){
-	__asm__("STMFD SP!,{R0-R12,LR}");
-	__asm__("MOV R0,R4");
-	__asm__("B arm9hook");
-	//arm9hook(test);
-	__asm__("LDMFD SP!,{R0-R12,LR}");
+	__asm__("STMFD SP!,{R0-R12,LR}\n"
+	"MOV R0,R4\n"
+	"BLX ah\n"
+	"LDMFD SP!,{R0-R12,LR}\n");
 }
