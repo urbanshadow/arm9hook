@@ -20,7 +20,7 @@ return (Result)cmdbuf[1];
 void __attribute__((section (".text.start"),naked)) _start(void){
 	__asm__("STMFD SP!,{R0-R12,LR}\n"
 	"MOV R0,R4\n"
-	"BLX arm9hook\n" //BLX stores this address in LR
+	"BLX arm9hook\n" //BLX stores the next address in LR
 	"LDMFD SP!,{R0-R12,LR}\n"
 	"LDR PC,[PC,#-4]\n"
 	".word 0xDEADBEEF"); // This will be patched afterwards to firm dependant return position.
