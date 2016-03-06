@@ -16,7 +16,7 @@ include $(DEVKITARM)/ds_rules
 # INCLUDES is a list of directories containing header files
 # SPECS is the directory containing the important build and link files
 #---------------------------------------------------------------------------------
-export TARGET	:=	arm9hook
+export TARGET	:=	arm9payload
 BUILD		:=	build
 SOURCES		:=	source
 DATA		:=	data

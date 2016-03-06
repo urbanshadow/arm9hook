@@ -5,13 +5,13 @@ void _start()
 {
 	unsigned int pad_state_old = HID_STATE;
     unsigned int pad_state = pad_state_old;
-	unsigned int i;
+	// unsigned int i;
 	while (1) {
         pad_state = HID_STATE;
         if (pad_state ^ pad_state_old)
             pad_state = ~pad_state;
-		for(i=0;i<460800;i++)
-			*(((unsigned int *)0x2008CA00)+i) = 0xFFFF;
+		/*for(i=0;i<460800;i++)
+			*(((unsigned int *)0x2008CA00)+i) = 0xFFFF;*/
 		if (pad_state & BUTTON_B) break;
 	}
     return;

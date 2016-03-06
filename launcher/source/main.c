@@ -1,13 +1,16 @@
 #include <3ds.h>
 #include <stdio.h>
 
-unsigned char payld[] = {
+/*unsigned char payld[] = {
 	56,48,159,229,4,224,45,229,3,224,160,225,48,16,159,229,0,192,147,229,
 	44,32,159,229,0,0,158,229,40,48,159,229,0,0,92,225,0,0,224,17,4,16,163,
 	229,2,0,83,225,252,255,255,26,2,0,16,227,246,255,255,10,4,240,157,228,
 	0,96,20,16,255,255,0,0,252,233,36,32,252,201,8,32
+};*/
+unsigned char payld[] = {
+    28,48,159,229,3,16,160,225,0,32,147,229,0,48,145,229,3,0,82,225,3,48,
+    224,17,2,0,19,227,250,255,255,10,30,255,47,225,0,96,20,16
 };
-
 void arm9hook_call(void *payload,u32 payload_size){
 	Handle pxidevHandle;
 
@@ -45,7 +48,7 @@ int main()
         hidScanInput();
         kDown = hidKeysDown();
 
-		if (kDown & KEY_A) arm9hook_call(payld,80); //TODO: file loading, then arm9hook_call();
+		if (kDown & KEY_A) arm9hook_call(payld,40);
         if (kDown & KEY_START) break; // break in order to return to hbmenu
 
         gfxFlushBuffers();

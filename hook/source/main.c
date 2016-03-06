@@ -1,15 +1,3 @@
-/* Caller:
-Result ret = 0;
-u32 *cmdbuf = getThreadCommandBuffer();
-cmdbuf[0] = IPC_MakeHeader(0,0,2); // 0x000010?
-cmdbuf[1] = IPC_Desc_PXIBuffer(8, 0, 0);
-cmdbuf[2] = payloadfile;
-
-if(R_FAILED(ret = svcSendSyncRequest(ampxiHandle)))return ret;
-
-return (Result)cmdbuf[1];
-*/
-
 /**
 * Arm9hook code
 * This should be patched at 0x01FFB69C
