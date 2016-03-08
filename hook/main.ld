@@ -1,6 +1,8 @@
 ENTRY(_start)
 SECTIONS
 {
-    .text.start : { *(.text.start) }
-    . = ALIGN(4);
+	. = 0x01FFB638;
+	.text.start : { *(.text.start) }
+	.text : { *(.text) }
+	. = ALIGN(4);
 }
