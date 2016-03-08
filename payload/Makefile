@@ -39,7 +39,7 @@ CFLAGS	+=	-DBUILD_NAME="\"$(TARGET) (`date +'%Y/%m/%d'`)\""
 CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions
 
 ASFLAGS	:=	-g $(ARCH)
-LDFLAGS	=	-nostartfiles -g 
+LDFLAGS	=	-nostartfiles -g -T ..\payload.ld
 
 LIBS	:=
 
