@@ -16,11 +16,11 @@ include $(DEVKITARM)/ds_rules
 # INCLUDES is a list of directories containing header files
 # SPECS is the directory containing the important build and link files
 #---------------------------------------------------------------------------------
-export TARGET	:=	arm9payload
+export TARGET	:=	payload
 BUILD		:=	build
 SOURCES		:=	source
 DATA		:=	data
-INCLUDES	:=  source
+INCLUDES	:=  include
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -104,25 +104,19 @@ common:
     
 bootstrap: common
 	@make --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
-	@cp $(OUTPUT).bin $(OUTPUT_D)/arm9loaderhax.bin
 	
 release:
 	@rm -fr $(BUILD) $(OUTPUT_D) $(RELEASE)
 	@make --no-print-directory bootstrap
 	@[ -d $(RELEASE) ] || mkdir -p $(RELEASE)
-	@-cp $(OUTPUT_D)/arm9loaderhax.bin $(RELEASE)
-	@cp $(CURDIR)/README.md $(RELEASE)
+	#@cp $(CURDIR)/README.md $(RELEASE)
 	@-[ ! -n "$(strip $(THEME))" ] || (mkdir $(RELEASE)/$(THEME) && cp $(CURDIR)/resources/$(THEME)/*.bin $(RELEASE)/$(THEME))
 	@-7z a $(RELEASE)/$(TARGET)-`date +'%Y%m%d-%H%M%S'`.zip $(RELEASE)/*
-asm: common
-	@make --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
-	@cp $(OUTPUT).bin $(OUTPUT_D)/arm9loaderhax.bin
 	
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
 	@rm -fr $(BUILD) $(OUTPUT_D) $(RELEASE)
-
 
 #---------------------------------------------------------------------------------
 else
@@ -141,9 +135,7 @@ $(OUTPUT).elf	:	$(OFILES)
 	@$(OBJCOPY) --set-section-flags .bss=alloc,load,contents -O binary $< $@
 	@echo built ... $(notdir $@)
 
-
 -include $(DEPENDS)
-
 
 #---------------------------------------------------------------------------------------
 endif

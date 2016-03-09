@@ -1,7 +1,7 @@
 BasicInfo:
-  Title                   : "Arm9Launcher"
+  Title                   : "ARM9 Launcher"
   CompanyCode             : "00"
-  ProductCode             : "CTR-P-A9LT"
+  ProductCode             : "CTR-P-A9LN"
   ContentType             : Application
   Logo                    : Nintendo # Nintendo / Licensed / Distributed / iQue / iQueForSystem
 

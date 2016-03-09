@@ -16,8 +16,7 @@ void arm9hook_call(const unsigned char *payload,u32 payload_size){
 	cmdbuf[1] = IPC_Desc_PXIBuffer(payload_size, 0, 0); //payload size, 0, 0
 	cmdbuf[2] = (u32)payload;
 
-	printf("\x1b[5;0H%lu",svcSendSyncRequest(pxidevHandle));
-	printf("\x1b[6;0H%lu",cmdbuf[1]);
+	svcSendSyncRequest(pxidevHandle);
 	
 	svcCloseHandle(pxidevHandle);
 
@@ -30,7 +29,7 @@ int main()
 	
     u32 kDown = 0;
 	
-	printf("\x1b[0;0HArm9hook test by Urbanshadow");
+	printf("\x1b[0;0HArm9hook by Urbanshadow");
 	printf("\x1b[3;0HPress Start to exit.");
     printf("\x1b[2;0HPress A to load an arm9 payload");
     // Main loop

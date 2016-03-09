@@ -136,13 +136,12 @@ $(BUILD):
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 	@cp $(OUTPUT).elf $(TARGET)_stripped.elf
 	@$(PREFIX)strip $(TARGET)_stripped.elf
-	makerom -f cia -o $(OUTPUT).cia -rsf $(TOPDIR)/resources/build_cia.rsf -target t -exefslogo -elf $(TARGET)_stripped.elf -icon $(TOPDIR)/resources/icon.icn -banner $(TOPDIR)/resources/banner.bnr
-	@echo "built ... $(OUTPUT).cia"
+	@makerom -f cia -o $(TARGET).cia -rsf $(TOPDIR)/resources/build_cia.rsf -target t -exefslogo -elf $(TARGET)_stripped.elf -icon $(TOPDIR)/resources/icon.bin -banner $(TOPDIR)/resources/banner.bin
+	
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD) $(TARGET).3dsx $(OUTPUT).smdh $(TARGET).elf $(TARGET).cia
-
+	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).cia $(TARGET)_stripped.elf
 
 #---------------------------------------------------------------------------------
 else
@@ -152,13 +151,8 @@ DEPENDS	:=	$(OFILES:.o=.d)
 #---------------------------------------------------------------------------------
 # main targets
 #---------------------------------------------------------------------------------
-ifeq ($(strip $(NO_SMDH)),)
-$(OUTPUT).3dsx	:	$(OUTPUT).elf $(OUTPUT).smdh
-else
-$(OUTPUT).3dsx	:	$(OUTPUT).elf
-endif
-
 $(OUTPUT).cia : $(OUTPUT).elf
+	@echo "built... $(notdir $@)"
 
 $(OUTPUT).elf	:	$(OFILES)
 
