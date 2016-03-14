@@ -7,9 +7,10 @@
 void arm9hook(unsigned int* cbuff){
 	unsigned int i,paysize,*payload,*itcm;
 	
+	// Extract data from command header.
 	paysize = ((cbuff[1] & ~0xFFu) >> 8);
-	itcm = (unsigned int*)0x01FF8000; //Start of unused itcm region
-	payload = *(unsigned int**)cbuff[2]; //payload pointer from the command header
+	itcm = (unsigned int*)0x01FF8000; // Start of unused itcm region
+	payload = *(unsigned int**)cbuff[2]; // Payload pointer from the command header
 	
 	// Memcpy wannabe
 	for(i=0;i<(paysize/4);i++) {
@@ -17,6 +18,6 @@ void arm9hook(unsigned int* cbuff){
 	}
 	
 	// Jump to payload after copy
-	void(*payloadEntry)() = (void*)0x01FF8000;
-	payloadEntry();
+	void(*payloadEntry)(unsigned int *) = (void*)0x01FF8000;
+	payloadEntry(*(unsigned int**)cbuff[4]);
 }
