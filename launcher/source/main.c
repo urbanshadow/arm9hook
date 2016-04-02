@@ -9,14 +9,13 @@ int main()
     consoleInit(GFX_TOP, NULL);
 	
     u32 kDown = 0;
-	u32 bgr[3] = {0,0,0};
-	u8 csel = 0;
+	u8 installed = 0;
+	u32 runs = 0;
+	u32 bgr[3] = {255,128,0};
 	
 	printf("\x1b[0;0HArm9hook example by Urbanshadow");
 	printf("\x1b[2;0HPress A to check arm9hook");
-	printf("\x1b[3;0HPress B to set bottom screen color to:");
-	printf("\x1b[4;3H B     G     R");
-	printf("\x1b[5;3H%3lu   %3lu   %3lu",bgr[0],bgr[1],bgr[2]);
+	printf("\x1b[3;0HPress B to run the payload");
 	printf("\x1b[7;0HPress Start to exit.");
     
     // Main loop
@@ -26,43 +25,31 @@ int main()
         kDown = hidKeysDown();
 
 		if (kDown & KEY_A) {
+			installed = 0;
 			if(arm9hook_check()){
-				printf("\x1b[8;0HARM9 hook is working!");
+				printf("\x1b[4;0HHook detected!        ");
 			}else{
-				printf("\x1b[8;0HARM9 hook is not working...");
-			}
+				printf("\x1b[4;0HHook not found...     ");
+			}	
 		}
 		if (kDown & KEY_B) {
-			arm9hook_call(payload_bin,payload_bin_size,bgr,3);
-		}
-		if (kDown & KEY_RIGHT) {
-			if(csel < 2){
-				csel++;
-			}
-		}
-		if (kDown & KEY_LEFT) {
-			if(csel > 0){
-				csel--;
-			}
-		}
-		if (kDown & KEY_UP) {
-			if(bgr[csel] < 255){
-				bgr[csel] += 5;
-			}
-		}
-		if (kDown & KEY_DOWN) {
-			if(bgr[csel] > 0){
-				bgr[csel] -= 5;
+			if(installed){
+				payload_run(bgr,12);
+				runs++;
+				printf("\x1b[5;0HRuns:%lu",runs);
+			}else{
+				payload_install(payload_bin,payload_bin_size);
+				installed = 1;
+				printf("\x1b[4;0HPayload Installed!");
 			}
 		}
         if (kDown & KEY_START) break; // break in order to return to hbmenu
-		
-		printf("\x1b[5;3H%3lu   %3lu   %3lu",bgr[0],bgr[1],bgr[2]);
 		
         gfxFlushBuffers();
         gfxSwapBuffers();
         gspWaitForVBlank();
     }
+	
     gfxExit();
     return 0;
 }

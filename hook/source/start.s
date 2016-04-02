@@ -2,13 +2,10 @@
 .arm
 .global _start
 _start:
-b wrap
-return:
-.word 0xDEADBEEF
-
-wrap:
-STMFD SP!,{R0-R12,LR}
 MOV R0,R4
 BL arm9hook
-LDMFD SP!,{R0-R12,LR}
-ldr PC,return
+LDR R1, =0x00041
+STR R1, [R4], #4
+STMIA R4, {R0,R5}
+ADD SP, SP, #0x84
+LDMFD SP!,{R4-R11,PC}
