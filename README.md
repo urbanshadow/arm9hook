@@ -1,7 +1,7 @@
 # ARM9 Launcher
 This project aims to launch multiple ARM9 payloads from the home menu in multiple versions as a CIA.
 
-We are capable to do this by doing a code patch with a cfw on the p9 process code that handles pxi service calls to inject a little code that acts as a hook for other payloads. This is fully working with n3ds firm version 10.2 and o3ds firm version 10.4 (so any software version > 10.2 for n3ds and > 10.4 for o3ds, up to 10.6)
+We are capable to do this by doing a code patch with a cfw on the p9 process code that handles pxi service calls to inject a little code that acts as a hook for other payloads. This is fully working with n3ds firm version 10.2 and o3ds firm version 10.4 (so any software version > 10.2 for n3ds and > 10.4 for o3ds, up to 10.7)
 
 So, you require to be running a modified CakesFW to patch the hook on emunand or sysnand, you can find this as a separate git repo of this same account. That CakesFW is fully compatible with A9LH. If you are on 9.2 or below, patching the hook in sysnand is not advised as you can reach ARM9 by other means.
 
