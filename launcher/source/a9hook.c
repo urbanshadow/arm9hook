@@ -44,7 +44,7 @@ Result payload_install_run(const u8 *payload,u32 payload_size,u32 *io,u32 io_byt
 		
 		svcCloseHandle(pxidev);
 		
-		return (Result)0;
+		return (Result)cmdbuf[1];
 	}
 }
 
@@ -72,7 +72,7 @@ Result payload_install(const u8 *payload,u32 payload_size){
 		
 		svcCloseHandle(pxidev);
 		
-		return (Result)0;
+		return (Result)cmdbuf[1];
 	}
 }
 
@@ -100,7 +100,7 @@ Result payload_run(u32 *io_buffer,u32 io_bytes){
 		
 		svcCloseHandle(pxidev);
 		
-		return (Result)0;
+		return (Result)cmdbuf[1];
 	}
 }
 

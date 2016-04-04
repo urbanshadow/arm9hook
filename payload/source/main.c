@@ -13,5 +13,5 @@ int payload(unsigned int *col)
 		*(bottom+i+2) = (unsigned char)col[3];
 	}
 	
-	return 0;
+	return 1024;
 }
