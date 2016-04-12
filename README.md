@@ -19,4 +19,4 @@ What this is:
 
 What this isn't:
 - ULTRA XTRA EGGSPLOIT FOR PIRACY STUFF !!!!!! (as it needs a cfw prior to run, in this case, cakesFW)
-- A way to run decrypt9 as a cia. (d0k3 already provided this for <=9.2 systems so go get it!)
+- A way to run decrypt9 as a cia.
